@@ -1,0 +1,10 @@
+{
+  // Cloudflare Workers 静的サイト設定（haru-sapo.com）
+  "name": "harusapo-hp",
+  "compatibility_date": "2026-07-18",
+  "assets": {
+    "directory": "./",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
