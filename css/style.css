@@ -37,38 +37,56 @@ a{text-decoration:none;color:inherit}
 ul{list-style:none}
 body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;color:var(--ink);overflow-x:hidden}
 
-/* ============ P1 トップビュー ============ */
-.p1{position:relative;background:var(--cream);padding:0 20px 32px}
-.p1-frame{position:relative;margin-top:110px;background:linear-gradient(150deg,#EFF7F6 0%,#FDFBF8 45%,#F7EDE7 100%);border-radius:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:620px;padding:70px 24px 48px}
-.p1-logo{position:absolute;top:-46px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
-.p1-bubbles{position:relative;width:118px;height:92px}
-.p1-bubble1{position:absolute;top:0;left:0;width:86px;height:74px;background:var(--blue);border-radius:44px 44px 44px 10px}
-.p1-bubble2{position:absolute;bottom:0;right:0;width:44px;height:40px;background:var(--red2);border-radius:50% 50% 12px 50%}
-.p1-caption{margin-top:10px;font-size:13px;font-weight:700;line-height:1.4;letter-spacing:1px;text-align:center;color:rgba(178,95,80,.95)}
+/* ============ P1 トップビュー（talkme.jpトレース） ============ */
+.p1{position:relative;background:var(--cream);padding:0 20px 24px}
+.p1-frame{position:relative;margin-top:96px;background:linear-gradient(150deg,#EFF7F6 0%,#FDFBF8 45%,#F7EDE7 100%);border-radius:56px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:600px;padding:64px 24px 48px}
+.p1-logo{position:absolute;top:-26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.p1-bubbles{position:relative;width:60px;height:52px}
+.p1-bubble1{position:absolute;top:0;left:0;width:44px;height:38px;background:var(--blue);border-radius:22px 22px 22px 5px}
+.p1-bubble2{position:absolute;bottom:0;right:0;width:24px;height:22px;background:var(--red2);border-radius:50% 50% 6px 50%}
+.p1-caption{margin-top:8px;font-size:13px;font-weight:700;line-height:1.4;letter-spacing:1px;text-align:center;color:rgba(178,95,80,.95)}
 .p1-body{width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center}
 .p1-sub{font-size:14px;font-weight:700;line-height:1.5;letter-spacing:.7px;text-align:center;color:var(--navy-soft)}
-.p1-title{margin-top:16px;font-size:24px;font-weight:700;line-height:1.5;letter-spacing:2px;text-align:center;color:var(--navy-soft)}
-.p1-note{margin-top:14px;font-size:13px;line-height:1.6;letter-spacing:.6px;text-align:center;color:var(--navy-soft)}
-.p1-cta{display:flex;justify-content:center;align-items:center;gap:14px;width:320px;max-width:100%;height:66px;margin-top:36px;background:var(--blue);border-radius:33px;box-shadow:0 6px 14px rgba(72,120,104,.25)}
-.p1-cta p{font-size:17px;font-weight:700;line-height:1;letter-spacing:.8px;text-align:center;color:var(--white)}
-.p1-cta .arw{position:static;transform:none;font-size:18px;color:var(--white);font-style:normal}
-.p1-link{display:block;margin-top:28px;font-size:14px;line-height:1.4;letter-spacing:.65px;text-align:center;color:rgba(178,95,80,.95);text-decoration:underline;text-underline-offset:4px}
+.p1-title{margin-top:14px;font-size:24px;font-weight:700;line-height:1.5;letter-spacing:1.8px;text-align:center;color:var(--navy-soft)}
+.p1-note{margin-top:12px;font-size:13px;line-height:1.6;letter-spacing:.5px;text-align:center;color:var(--navy-soft)}
+.p1-cta{display:flex;justify-content:center;align-items:center;gap:12px;width:236px;max-width:100%;height:60px;margin-top:36px;background:var(--blue);border-radius:30px;box-shadow:0 6px 14px rgba(72,120,104,.25)}
+.p1-cta p{font-size:15px;font-weight:700;line-height:1;letter-spacing:.7px;text-align:center;color:var(--white)}
+.p1-cta .arw{position:static;transform:none;font-size:17px;color:var(--white);font-style:normal}
+.p1-link{display:block;margin-top:26px;font-size:14px;line-height:1.4;letter-spacing:.6px;text-align:center;color:rgba(178,95,80,.95);text-decoration:underline;text-underline-offset:4px}
+
+/* 表示時の出現アニメーション（CSSのみ、JS不要） */
+@keyframes p1FrameIn{from{opacity:0}to{opacity:1}}
+@keyframes p1Pop{0%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+@keyframes p1FadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.p1-frame{animation:p1FrameIn .8s ease .1s both}
+.p1-bubble1{transform-origin:0 100%;animation:p1Pop .5s cubic-bezier(.34,1.56,.64,1) .5s both}
+.p1-bubble2{transform-origin:0 0;animation:p1Pop .5s cubic-bezier(.34,1.56,.64,1) .7s both}
+.p1-caption{animation:p1FadeUp .6s ease .9s both}
+.p1-sub{animation:p1FadeUp .7s ease 1s both}
+.p1-title{animation:p1FadeUp .7s ease 1.15s both}
+.p1-note{animation:p1FadeUp .7s ease 1.3s both}
+.p1-cta{animation:p1FadeUp .7s ease 1.45s both}
+.p1-link{animation:p1FadeUp .7s ease 1.6s both}
+@media (prefers-reduced-motion:reduce){
+  .p1-frame,.p1-bubble1,.p1-bubble2,.p1-caption,.p1-sub,.p1-title,.p1-note,.p1-cta,.p1-link{animation:none}
+}
+
 @media(min-width:840px){
   .p1{padding:0 40px 60px}
-  .p1-frame{margin-top:130px;border-radius:100px;min-height:700px;padding:90px 40px;justify-content:center}
-  .p1-logo{top:-64px}
-  .p1-bubbles{width:160px;height:126px}
-  .p1-bubble1{width:118px;height:102px;border-radius:60px 60px 60px 14px}
-  .p1-bubble2{width:60px;height:54px;border-radius:50% 50% 16px 50%}
-  .p1-caption{margin-top:12px;font-size:15px;letter-spacing:1.2px}
-  .p1-body{max-width:900px;margin:0}
+  .p1-frame{margin-top:120px;border-radius:96px;min-height:680px;padding:90px 40px}
+  .p1-logo{top:-40px}
+  .p1-bubbles{width:96px;height:82px}
+  .p1-bubble1{width:70px;height:60px;border-radius:35px 35px 35px 8px}
+  .p1-bubble2{width:38px;height:34px;border-radius:50% 50% 9px 50%}
+  .p1-caption{margin-top:10px;font-size:15px;letter-spacing:1.2px}
+  .p1-body{max-width:900px}
   .p1-sub{font-size:18px;letter-spacing:.9px}
-  .p1-title{margin-top:20px;font-size:40px;letter-spacing:4px}
-  .p1-note{margin-top:16px;font-size:16px}
-  .p1-cta{width:480px;height:88px;border-radius:44px;margin-top:48px}
-  .p1-cta p{font-size:21px;letter-spacing:1px}
-  .p1-cta .arw{font-size:22px}
-  .p1-link{margin-top:32px;font-size:15px}
+  .p1-title{margin-top:18px;font-size:40px;letter-spacing:3.5px}
+  .p1-note{margin-top:14px;font-size:16px}
+  .p1-cta{width:420px;height:80px;border-radius:40px;margin-top:44px;gap:14px}
+  .p1-cta p{font-size:20px;letter-spacing:1px}
+  .p1-cta .arw{font-size:21px}
+  .p1-link{margin-top:30px;font-size:15px}
 }
 
 /* ============ P2 Support ============ */
