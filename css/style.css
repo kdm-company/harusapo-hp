@@ -38,36 +38,37 @@ ul{list-style:none}
 body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;color:var(--ink);overflow-x:hidden}
 
 /* ============ P1 トップビュー ============ */
-.p1{position:relative;background:var(--cream);padding:0 24px 24px}
-.p1-frame{position:relative;margin-top:130px;background:var(--cream-glass);border-radius:96px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;min-height:674px}
-.p1-logo{position:absolute;top:-24px;left:50%;transform:translateX(-50%);width:100%;display:flex;flex-direction:column;align-items:center}
-.p1-bubbles{position:relative;width:269px;height:63px}
-.p1-bubble1{position:absolute;top:0;left:0;width:269px;height:63px;background:var(--blue);border-radius:160px 160px 160px 12px}
-.p1-bubble2{position:absolute;top:30px;right:0;width:176px;height:40px;background:var(--red2);border-radius:140px 140px 12px}
-.p1-caption{margin-top:8px;font-size:11px;font-weight:700;line-height:1.4;letter-spacing:.55px;text-align:center;color:rgba(178,95,80,.95)}
-.p1-body{width:100%;max-width:311px;margin:40px 0;display:flex;flex-direction:column;align-items:center}
-.p1-sub{font-size:13px;line-height:1.5;letter-spacing:.65px;text-align:center;color:var(--navy-soft)}
-.p1-title{margin-top:10px;font-size:21px;font-weight:400;line-height:1.45;letter-spacing:2.1px;text-align:center;color:var(--navy-soft)}
-.p1-note{margin-top:15px;font-size:12px;line-height:1.4;letter-spacing:.6px;text-align:center;color:var(--navy-soft)}
-.p1-cta{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:268px;margin-top:40px;background:var(--blue);border-radius:274px}
-.p1-cta p{font-size:16px;line-height:1.6;letter-spacing:.8px;text-align:center;color:var(--white)}
-.p1-cta .arw{position:absolute;top:50%;right:26px;transform:translateY(-50%);font-size:20px;color:var(--white);font-style:normal}
-.p1-link{display:block;margin-top:40px;font-size:13px;line-height:1.4;letter-spacing:.65px;text-align:center;color:rgba(178,95,80,.95)}
+.p1{position:relative;background:var(--cream);padding:0 20px 32px}
+.p1-frame{position:relative;margin-top:110px;background:linear-gradient(150deg,#EFF7F6 0%,#FDFBF8 45%,#F7EDE7 100%);border-radius:80px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:620px;padding:70px 24px 48px}
+.p1-logo{position:absolute;top:-46px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.p1-bubbles{position:relative;width:118px;height:92px}
+.p1-bubble1{position:absolute;top:0;left:0;width:86px;height:74px;background:var(--blue);border-radius:44px 44px 44px 10px}
+.p1-bubble2{position:absolute;bottom:0;right:0;width:44px;height:40px;background:var(--red2);border-radius:50% 50% 12px 50%}
+.p1-caption{margin-top:10px;font-size:13px;font-weight:700;line-height:1.4;letter-spacing:1px;text-align:center;color:rgba(178,95,80,.95)}
+.p1-body{width:100%;max-width:340px;display:flex;flex-direction:column;align-items:center}
+.p1-sub{font-size:14px;font-weight:700;line-height:1.5;letter-spacing:.7px;text-align:center;color:var(--navy-soft)}
+.p1-title{margin-top:16px;font-size:24px;font-weight:700;line-height:1.5;letter-spacing:2px;text-align:center;color:var(--navy-soft)}
+.p1-note{margin-top:14px;font-size:13px;line-height:1.6;letter-spacing:.6px;text-align:center;color:var(--navy-soft)}
+.p1-cta{display:flex;justify-content:center;align-items:center;gap:14px;width:320px;max-width:100%;height:66px;margin-top:36px;background:var(--blue);border-radius:33px;box-shadow:0 6px 14px rgba(72,120,104,.25)}
+.p1-cta p{font-size:17px;font-weight:700;line-height:1;letter-spacing:.8px;text-align:center;color:var(--white)}
+.p1-cta .arw{position:static;transform:none;font-size:18px;color:var(--white);font-style:normal}
+.p1-link{display:block;margin-top:28px;font-size:14px;line-height:1.4;letter-spacing:.65px;text-align:center;color:rgba(178,95,80,.95);text-decoration:underline;text-underline-offset:4px}
 @media(min-width:840px){
-  .p1-frame{margin-top:112px;border-radius:80px;padding:130px 0 80px;min-height:764px;justify-content:flex-start}
-  .p1-logo{top:-48px}
-  .p1-bubbles{width:min(1068px,75vw);height:104px}
-  .p1-bubble1{width:100%;height:104px}
-  .p1-bubble2{width:65%;height:66px;top:50px}
-  .p1-caption{margin-top:12px;font-size:13px;letter-spacing:.65px}
-  .p1-body{max-width:1376px;margin:130px 0 0}
+  .p1{padding:0 40px 60px}
+  .p1-frame{margin-top:130px;border-radius:100px;min-height:700px;padding:90px 40px;justify-content:center}
+  .p1-logo{top:-64px}
+  .p1-bubbles{width:160px;height:126px}
+  .p1-bubble1{width:118px;height:102px;border-radius:60px 60px 60px 14px}
+  .p1-bubble2{width:60px;height:54px;border-radius:50% 50% 16px 50%}
+  .p1-caption{margin-top:12px;font-size:15px;letter-spacing:1.2px}
+  .p1-body{max-width:900px;margin:0}
   .p1-sub{font-size:18px;letter-spacing:.9px}
-  .p1-title{font-size:36px;letter-spacing:4.68px}
-  .p1-note{margin-top:10px;font-size:18px;letter-spacing:.9px}
-  .p1-cta{height:145px;margin-top:80px}
-  .p1-cta p{font-size:22px;letter-spacing:1.1px}
-  .p1-cta .arw{right:32px;font-size:24px}
-  .p1-link{margin-top:48px;font-size:15px;letter-spacing:.75px;color:var(--navy-soft)}
+  .p1-title{margin-top:20px;font-size:40px;letter-spacing:4px}
+  .p1-note{margin-top:16px;font-size:16px}
+  .p1-cta{width:480px;height:88px;border-radius:44px;margin-top:48px}
+  .p1-cta p{font-size:21px;letter-spacing:1px}
+  .p1-cta .arw{font-size:22px}
+  .p1-link{margin-top:32px;font-size:15px}
 }
 
 /* ============ P2 Support ============ */
