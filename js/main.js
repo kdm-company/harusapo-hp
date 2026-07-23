@@ -1,15 +1,17 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // モバイルナビ開閉
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.getElementById("siteNav");
-  if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(open));
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('menuBtn');
+  var drawer = document.getElementById('drawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
-
-  // コピーライト年
-  const year = document.getElementById("year");
-  if (year) year.textContent = new Date().getFullYear();
+  if (location.search.indexOf('sent=1') > -1) {
+    var done = document.getElementById('formDone');
+    if (done) {
+      done.classList.add('show');
+      done.scrollIntoView({ block: 'center' });
+    }
+  }
 });
