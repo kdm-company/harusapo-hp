@@ -1,0 +1,294 @@
+name: capture-catalog-v2-design-validation
+
+on:
+  push:
+    branches:
+      - test/catalog-v2-design-validation
+
+permissions:
+  contents: read
+
+concurrency:
+  group: capture-catalog-v2-design-validation
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      A_SHA: 5443c2e0f272e75f26257fe84051e9468e032e0e
+      B_SHA: 3d998605fdbdc1d8ff179571c952234b37df66ca
+    steps:
+      - name: Checkout A (main 5443c2e, pinned)
+        uses: actions/checkout@v4
+        with:
+          ref: 5443c2e0f272e75f26257fe84051e9468e032e0e
+          path: a
+
+      - name: Checkout B (3d99860, pinned)
+        uses: actions/checkout@v4
+        with:
+          ref: 3d998605fdbdc1d8ff179571c952234b37df66ca
+          path: b
+
+      - name: Verify images exist and match (no screenshots if this fails)
+        run: |
+          set -euo pipefail
+          mkdir -p out work
+          cat > work/check_images.py <<'PY'
+          import hashlib, json, os, sys
+          imgs = ["anshin_image.png","bento.png","doukou.png","fv_illust.png","soudan_room.png"]
+          rep = []
+          fail = False
+          for name in imgs:
+              entry = {"file": name}
+              for side in ("a","b"):
+                  p = os.path.join(side, "images", name)
+                  if os.path.isfile(p):
+                      data = open(p, "rb").read()
+                      entry[side+"_size"] = len(data)
+                      entry[side+"_sha256"] = hashlib.sha256(data).hexdigest()
+                  else:
+                      entry[side+"_size"] = None
+                      entry[side+"_sha256"] = None
+                      fail = True
+              entry["identical"] = entry.get("a_sha256") is not None and entry["a_sha256"] == entry["b_sha256"]
+              if not entry["identical"]:
+                  fail = True
+              rep.append(entry)
+          json.dump(rep, open("work/image-check.json","w"), indent=2)
+          print(json.dumps(rep, indent=2))
+          if fail:
+              print("IMAGE CHECK FAILED: missing or mismatched image between A and B", file=sys.stderr)
+              sys.exit(1)
+          PY
+          python3 work/check_images.py
+
+      - name: Install Playwright Chromium
+        run: |
+          set -euo pipefail
+          npm init -y > /dev/null
+          npm i --no-audit --no-fund playwright > /dev/null
+          npx playwright install --with-deps chromium
+          npx playwright --version
+
+      - name: Serve A and B, capture screenshots, measure layout
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8001 --directory a > /dev/null 2>&1 &
+          python3 -m http.server 8002 --directory b > /dev/null 2>&1 &
+          for p in 8001 8002; do
+            ok=0
+            for i in $(seq 1 60); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:${p}/" || true)
+              if [ "$code" = "200" ]; then ok=1; break; fi
+              sleep 1
+            done
+            if [ "$ok" != "1" ]; then echo "server on port ${p} did not return 200"; exit 1; fi
+          done
+          cat > work/capture.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'fs';
+          const IMGS = ["anshin_image.png","bento.png","doukou.png","fv_illust.png","soudan_room.png"];
+          const targets = [
+            { id: 'A', base: 'http://127.0.0.1:8001' },
+            { id: 'B', base: 'http://127.0.0.1:8002' },
+          ];
+          const modes = [
+            { id: 'pc_1440', viewport: { width: 1440, height: 1000 }, isMobile: false },
+            { id: 'sp_375', viewport: { width: 375, height: 812 }, isMobile: true },
+          ];
+          const browser = await chromium.launch();
+          const report = { chromium: browser.version(), pages: [], problems: [] };
+          for (const t of targets) {
+            for (const m of modes) {
+              const ctx = await browser.newContext({
+                viewport: m.viewport,
+                deviceScaleFactor: 1,
+                isMobile: m.isMobile,
+                hasTouch: m.isMobile,
+                reducedMotion: 'reduce',
+              });
+              const page = await ctx.newPage();
+              const rec = { target: t.id, mode: m.id, consoleErrors: [], pageErrors: [], failedRequests: [], httpErrors: [], imageRequests: [] };
+              page.on('console', msg => { if (msg.type() === 'error') rec.consoleErrors.push(msg.text()); });
+              page.on('pageerror', e => rec.pageErrors.push(String(e)));
+              page.on('requestfailed', r => rec.failedRequests.push(r.url() + ' :: ' + ((r.failure() && r.failure().errorText) || '')));
+              page.on('response', r => {
+                const url = r.url();
+                if (r.status() >= 400) rec.httpErrors.push(r.status() + ' ' + url);
+                if (/[.](png|jpg|jpeg|webp|gif|svg)([?]|$)/i.test(url)) rec.imageRequests.push({ url, status: r.status() });
+              });
+              await page.goto(t.base + '/', { waitUntil: 'load' });
+              await page.evaluate(() => document.fonts.ready);
+              await page.addStyleTag({ content: '*,*::before,*::after{animation:none !important;transition:none !important;caret-color:transparent !important}' });
+              await page.evaluate(async () => {
+                const d = document.documentElement;
+                for (let y = 0; y < d.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); }
+                window.scrollTo(0, d.scrollHeight);
+                await new Promise(r => setTimeout(r, 250));
+                window.scrollTo(0, 0);
+              });
+              await page.waitForTimeout(600);
+              rec.imgElements = await page.evaluate(() => Array.from(document.images).map(i => ({ src: i.currentSrc || i.src, complete: i.complete, naturalWidth: i.naturalWidth })));
+              rec.metrics = await page.evaluate(() => ({
+                clientWidth: document.documentElement.clientWidth,
+                scrollWidth: document.documentElement.scrollWidth,
+                bodyScrollWidth: document.body.scrollWidth,
+                scrollHeight: document.documentElement.scrollHeight,
+              }));
+              rec.overflowingElements = await page.evaluate(() => {
+                const cw = document.documentElement.clientWidth; const out = [];
+                for (const el of document.querySelectorAll('body *')) {
+                  const r = el.getBoundingClientRect();
+                  if (r.width > 0 && (r.right > cw + 0.5 || r.left < -0.5)) {
+                    out.push({ tag: el.tagName.toLowerCase(), cls: el.className ? String(el.className).slice(0, 80) : '', left: Math.round(r.left), right: Math.round(r.right) });
+                    if (out.length >= 8) break;
+                  }
+                }
+                return out;
+              });
+              rec.directImageChecks = [];
+              for (const name of IMGS) {
+                const resp = await ctx.request.get(t.base + '/images/' + name);
+                const body = await resp.body();
+                rec.directImageChecks.push({ file: name, status: resp.status(), bytes: body.length });
+                if (resp.status() !== 200 || body.length === 0) report.problems.push(t.id + ' ' + m.id + ': direct GET failed for ' + name);
+              }
+              const pageImgs = rec.imageRequests.filter(r => r.url.includes('/images/'));
+              rec.pageImageRequestCount = pageImgs.length;
+              if (pageImgs.length === 0) report.problems.push(t.id + ' ' + m.id + ': page made no /images/ requests (placeholder suspicion)');
+              for (const r of pageImgs) { if (r.status !== 200) report.problems.push(t.id + ' ' + m.id + ': image request not 200: ' + r.status + ' ' + r.url); }
+              for (const i of rec.imgElements) { if (!i.complete || i.naturalWidth === 0) report.problems.push(t.id + ' ' + m.id + ': broken img element ' + i.src); }
+              const shot = 'out/' + t.id + '_' + m.id + '.png';
+              await page.screenshot({ path: shot, fullPage: true });
+              rec.screenshot = shot;
+              report.pages.push(rec);
+              await ctx.close();
+            }
+          }
+          await browser.close();
+          report.fvIllustNote = 'fv_illust.png is referenced only by the og:image meta tag on both A and B (not rendered on the page), so no page-initiated request is expected; it is verified via direct HTTP GET on both servers.';
+          report.realImagesOk = report.problems.length === 0;
+          fs.writeFileSync('work/capture-report.json', JSON.stringify(report, null, 2));
+          console.log('problems:', JSON.stringify(report.problems, null, 2));
+          JS
+          node work/capture.mjs
+
+      - name: Build side-by-side comparison images
+        run: |
+          set -euo pipefail
+          cd out
+          mklabel() {
+            convert "$1" -background '#E9E7E2' -gravity north -splice 0x64 -gravity northwest -pointsize 30 -fill '#333333' -annotate +24+18 "$2" "$3"
+          }
+          pair() {
+            mklabel "$1" "$4" _a.png
+            mklabel "$2" "$5" _b.png
+            ha=$(identify -format '%h' _a.png); hb=$(identify -format '%h' _b.png)
+            h=$ha; if [ "$hb" -gt "$h" ]; then h=$hb; fi
+            wa=$(identify -format '%w' _a.png); wb=$(identify -format '%w' _b.png)
+            convert _a.png -background '#E9E7E2' -gravity north -extent "${wa}x${h}" _a2.png
+            convert _b.png -background '#E9E7E2' -gravity north -extent "${wb}x${h}" _b2.png
+            convert _a2.png -size "24x${h}" xc:'#E9E7E2' _b2.png +append "$3"
+            rm -f _a.png _b.png _a2.png _b2.png
+          }
+          pair A_pc_1440.png B_pc_1440.png compare_pc.png 'A: main 5443c2e' 'B: 3d99860'
+          pair A_sp_375.png B_sp_375.png compare_sp.png 'A: main 5443c2e' 'B: 3d99860'
+          identify A_pc_1440.png B_pc_1440.png A_sp_375.png B_sp_375.png compare_pc.png compare_sp.png
+
+      - name: Build validation report
+        run: |
+          set -euo pipefail
+          cat > work/report.py <<'PY'
+          import json, os, platform
+          cap = json.load(open('work/capture-report.json'))
+          imgs = json.load(open('work/image-check.json'))
+          shots = ['A_pc_1440.png','B_pc_1440.png','A_sp_375.png','B_sp_375.png','compare_pc.png','compare_sp.png']
+          rep = {
+            'a_commit': os.environ.get('A_SHA'),
+            'b_commit': os.environ.get('B_SHA'),
+            'runner': platform.platform(),
+            'runner_image': (os.environ.get('ImageOS','') + ' ' + os.environ.get('ImageVersion','')).strip(),
+            'chromium': cap.get('chromium'),
+            'images': imgs,
+            'pages': cap['pages'],
+            'problems': cap.get('problems', []),
+            'fv_illust_note': cap.get('fvIllustNote'),
+            'screenshots': shots,
+            'real_images_ok': cap.get('realImagesOk'),
+            'result': 'success' if cap.get('realImagesOk') else 'failed: ' + '; '.join(cap.get('problems', [])),
+          }
+          json.dump(rep, open('out/validation-report.json','w'), indent=2, ensure_ascii=False)
+          L = []
+          L.append('# harusapo catalog-v2 real image validation')
+          L.append('')
+          L.append('- A commit: ' + rep['a_commit'])
+          L.append('- B commit: ' + rep['b_commit'])
+          L.append('- Runner: ' + rep['runner'] + ' / ' + rep['runner_image'])
+          L.append('- Chromium: ' + str(rep['chromium']))
+          L.append('- Real images OK: ' + str(rep['real_images_ok']))
+          L.append('- Note: ' + str(rep['fv_illust_note']))
+          L.append('')
+          L.append('## Images (A vs B)')
+          L.append('')
+          L.append('| file | a_size | b_size | sha256 match |')
+          L.append('|---|---:|---:|---|')
+          for e in imgs:
+              L.append('| %s | %s | %s | %s |' % (e['file'], e['a_size'], e['b_size'], e['identical']))
+          L.append('')
+          L.append('## Layout metrics')
+          L.append('')
+          L.append('| page | clientWidth | scrollWidth | bodyScrollWidth | scrollHeight | horizontal scroll |')
+          L.append('|---|---:|---:|---:|---:|---|')
+          for p in cap['pages']:
+              m = p['metrics']
+              hs = 'yes' if m['scrollWidth'] > m['clientWidth'] else 'no'
+              L.append('| %s %s | %s | %s | %s | %s | %s |' % (p['target'], p['mode'], m['clientWidth'], m['scrollWidth'], m['bodyScrollWidth'], m['scrollHeight'], hs))
+          L.append('')
+          L.append('## Errors per page')
+          L.append('')
+          for p in cap['pages']:
+              L.append('### %s %s' % (p['target'], p['mode']))
+              L.append('- console errors: %s' % (p['consoleErrors'] or 'none'))
+              L.append('- page errors: %s' % (p['pageErrors'] or 'none'))
+              L.append('- failed requests: %s' % (p['failedRequests'] or 'none'))
+              L.append('- http >=400: %s' % (p['httpErrors'] or 'none'))
+              L.append('- page image requests (/images/): %s' % p['pageImageRequestCount'])
+              L.append('- direct image GETs: %s' % json.dumps(p['directImageChecks']))
+              L.append('- overflowing elements: %s' % (json.dumps(p['overflowingElements'], ensure_ascii=False) if p['overflowingElements'] else 'none'))
+              L.append('')
+          L.append('## Problems')
+          L.append('')
+          if rep['problems']:
+              for pr in rep['problems']:
+                  L.append('- ' + pr)
+          else:
+              L.append('- none')
+          open('out/validation-report.md','w').write('\n'.join(L) + '\n')
+          PY
+          python3 work/report.py
+          echo '--- validation-report.md ---'
+          cat out/validation-report.md
+
+      - name: Verify 8 artifact files exist and are non-empty
+        run: |
+          set -euo pipefail
+          for f in A_pc_1440.png B_pc_1440.png A_sp_375.png B_sp_375.png compare_pc.png compare_sp.png validation-report.json validation-report.md; do
+            if [ ! -s "out/$f" ]; then echo "missing or empty: $f"; exit 1; fi
+          done
+          ls -la out
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: harusapo-catalog-v2-real-image-validation
+          path: out/
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Fail if real image validation failed
+        run: |
+          set -euo pipefail
+          python3 -c "import json,sys; r=json.load(open('out/validation-report.json')); sys.exit(0 if r['real_images_ok'] else 1)"
