@@ -1,0 +1,258 @@
+/* ============================================================
+   B案スタイル（catalog-v2検証用 / test/catalog-v2-design-validation）
+   参照パーツ: DECO-026（3列比較＋推奨上辺アクセント＋誘導帯）
+             DECO-027（番号ステップ縦タイムライン＋末尾CTA帯）
+             DECO-028（下線区切り縦積みリスト）
+             DECO-029（キャッチコピー主役の文字階層＋理念引用）
+             DECO-031（英字ラベル＋見出し＋リードの見出し秩序）
+   配色: 既存確定パレットのみ（変更なし）
+   ============================================================ */
+:root{
+  --primary-light:#A9CBBE;
+  --primary:#487868;
+  --primary-hover:#3E6E5E;
+  --accent-light:#E79A8A;
+  --accent:#B25F50;
+  --bg:#FCFAF6;
+  --bg-beige:#F5EDE2;
+  --bg-mint:#EFF7F6;
+  --white:#FFFFFF;
+  --text:#394641;
+  --text-sub:#6C7672;
+  --border:#E2DDD7;
+}
+html{overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul,ol{list-style:none}
+body{font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden;line-height:1.8}
+.arw{font-style:normal}
+
+/* ---- 共通見出し（DECO-031/032: 英字ラベル＋和文見出し＋リード） ---- */
+.sec-hd{text-align:center}
+.sec-hd .en{display:block;font-size:12px;font-weight:700;letter-spacing:3px;color:var(--accent)}
+.sec-hd .ja{display:block;margin-top:10px;font-size:26px;font-weight:700;letter-spacing:2px;line-height:1.4;color:var(--text)}
+.sec-hd.left{text-align:left}
+.sec-lead{max-width:640px;margin:22px auto 0;font-size:14px;line-height:2;color:var(--text)}
+@media(min-width:840px){
+  .sec-hd .en{font-size:14px}
+  .sec-hd .ja{margin-top:12px;font-size:36px}
+  .sec-lead{margin-top:28px;font-size:16px}
+}
+
+/* ---- ヘッダー ---- */
+.bh{position:relative;background:var(--white);border-bottom:1px solid var(--border)}
+.bh-in{display:flex;align-items:center;height:64px;padding:0 16px;max-width:1200px;margin:0 auto}
+.bh-logo{margin-right:auto}
+.bh-logo a{display:flex;flex-direction:column}
+.bh-mark{font-size:18px;font-weight:800;letter-spacing:.5px;color:var(--primary);white-space:nowrap}
+.bh-tag{margin-top:2px;font-size:10px;letter-spacing:1px;color:var(--text-sub)}
+.bh-nav{display:none}
+.bh-menu{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:56px;height:44px;background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:inherit}
+.bh-ham{position:relative;display:block;width:22px;height:2px;background:var(--primary)}
+.bh-ham::before,.bh-ham::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--primary)}
+.bh-ham::before{top:-7px}
+.bh-ham::after{top:7px}
+.bh-menutext{display:none}
+.bh-drawer{display:none;flex-direction:column;background:var(--white);border-bottom:1px solid var(--border)}
+.bh-drawer.open{display:flex}
+.bh-drawer a{padding:15px 24px;border-top:1px solid var(--border);font-size:15px;color:var(--text)}
+@media(min-width:840px){
+  .bh-in{height:84px;padding:0 32px}
+  .bh-mark{font-size:22px}
+  .bh-tag{font-size:11px}
+  .bh-nav{display:flex;align-items:center;gap:28px}
+  .bh-nav a{font-size:14px;font-weight:600;letter-spacing:.5px;color:var(--text);white-space:nowrap}
+  .bh-nav a:hover{color:var(--primary)}
+  .bh-nav .bh-tel{display:inline-block;padding:11px 20px;background:var(--primary);color:var(--white);border-radius:24px;font-weight:700}
+  .bh-nav .bh-tel:hover{background:var(--primary-hover);color:var(--white)}
+  .bh-menu{display:none}
+}
+
+/* ---- FV（DECO-029: キャッチ主役・4段階の文字階層） ---- */
+.bf{background:linear-gradient(160deg,var(--bg-mint) 0%,var(--bg) 55%,var(--bg-beige) 100%)}
+.bf-in{max-width:1080px;margin:0 auto;padding:64px 24px 72px}
+.bf-body{display:flex;flex-direction:column;align-items:center;text-align:center}
+.bf-brand{display:flex;flex-direction:column;align-items:center}
+.bf-bub1{display:block;width:40px;height:34px;background:var(--primary);border-radius:20px 20px 20px 5px}
+.bf-bub2{display:block;width:20px;height:18px;margin:-12px 0 0 34px;background:var(--accent);border-radius:50% 50% 5px 50%}
+.bf-caption{margin-top:8px;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--accent)}
+.bf-sub{margin-top:26px;font-size:14px;font-weight:700;letter-spacing:1px;color:var(--primary)}
+.bf-title{margin-top:14px;font-size:26px;font-weight:800;line-height:1.6;letter-spacing:1.5px;color:var(--text)}
+.bf-note{margin-top:16px;font-size:14px;line-height:1.9;color:var(--text-sub)}
+.bf-ctas{display:flex;flex-direction:column;align-items:center;margin-top:34px}
+.bf-cta{display:flex;justify-content:center;align-items:center;gap:12px;width:300px;max-width:100%;height:60px;background:var(--accent);border-radius:30px;box-shadow:0 6px 14px rgba(178,95,80,.28)}
+.bf-cta span{font-size:16px;font-weight:700;letter-spacing:1px;color:var(--white)}
+.bf-cta .arw{color:var(--white);font-size:17px}
+.bf-cta:hover{background:#a35648}
+.bf-link{margin-top:22px;font-size:14px;color:var(--primary);text-decoration:underline;text-underline-offset:4px}
+@media(min-width:840px){
+  .bf-in{padding:110px 40px 120px}
+  .bf-bub1{width:56px;height:48px;border-radius:28px 28px 28px 7px}
+  .bf-bub2{width:28px;height:25px;margin:-16px 0 0 48px}
+  .bf-caption{margin-top:10px;font-size:14px}
+  .bf-sub{margin-top:34px;font-size:18px;letter-spacing:1.5px}
+  .bf-title{margin-top:18px;font-size:52px;letter-spacing:4px}
+  .bf-note{margin-top:22px;font-size:17px}
+  .bf-ctas{flex-direction:row;gap:36px;margin-top:46px;align-items:center}
+  .bf-cta{width:360px;height:72px;border-radius:36px}
+  .bf-cta span{font-size:19px}
+  .bf-link{margin-top:0;font-size:15px}
+}
+
+/* ---- 相談する（DECO-026: 同形3列＋推奨上辺アクセント＋誘導帯） ---- */
+.bc{background:var(--bg-mint)}
+.bc-in{max-width:1080px;margin:0 auto;padding:64px 20px 64px}
+.bc-cards{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.bc-card{position:relative;background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.bc-card::before{content:"";display:block;height:4px;background:var(--border)}
+.bc-card.is-main{border-color:var(--primary-light)}
+.bc-card.is-main::before{background:var(--primary);height:5px}
+.bc-card a{display:block;padding:24px 22px 26px;text-align:center}
+.bc-free{position:absolute;top:18px;right:16px;padding:2px 10px;font-size:12px;font-weight:700;color:var(--primary);border:1px solid var(--primary);border-radius:12px}
+.bc-card h3{font-size:19px;font-weight:800;letter-spacing:1px;color:var(--text)}
+.bc-txt{margin-top:10px;font-size:13px;line-height:1.8;color:var(--text-sub)}
+.bc-btn{position:relative;width:280px;max-width:100%;height:48px;margin:16px auto 0;font-size:15px;font-weight:700;line-height:46px;letter-spacing:1px;border-radius:24px}
+.bc-btn-tel{color:var(--white);background:var(--accent);box-shadow:0 4px 10px rgba(178,95,80,.22)}
+.bc-btn-line{color:var(--primary);border:2px solid var(--primary);line-height:44px}
+.bc-btn-mail{color:var(--primary);border:2px solid var(--primary);line-height:44px}
+.bc-other{margin-top:26px;padding:16px 20px;background:var(--white);border-radius:10px;font-size:13px;line-height:1.8;text-align:center}
+.bc-other a{color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+@media(min-width:840px){
+  .bc-in{padding:100px 40px 110px}
+  .bc-cards{flex-direction:row;gap:24px;margin-top:52px}
+  .bc-card{flex:1}
+  .bc-card a{padding:34px 24px 36px}
+  .bc-card h3{font-size:21px}
+  .bc-txt{min-height:66px;display:flex;flex-direction:column;justify-content:center;margin-top:14px;font-size:14px}
+  .bc-btn{width:240px;margin-top:20px}
+  .bc-other{margin-top:32px;font-size:15px}
+}
+
+/* ---- 相談のながれ（DECO-027: 番号円＋縦線タイムライン＋CTA帯） ---- */
+.bw{background:var(--bg)}
+.bw-in{max-width:1080px;margin:0 auto;padding:64px 20px}
+.bw-cols{margin-top:36px}
+.bw-steps{position:relative}
+.bw-steps li{position:relative;display:flex;align-items:center;padding:0 0 34px 0}
+.bw-steps li:last-child{padding-bottom:0}
+.bw-steps li::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:2px;background:var(--primary-light)}
+.bw-steps li:last-child::before{display:none}
+.bw-num{display:flex;justify-content:center;align-items:center;width:44px;height:44px;flex-shrink:0;font-size:18px;font-weight:700;color:var(--white);background:var(--primary);border-radius:50%;position:relative;z-index:1}
+.bw-step{flex:1;margin-left:16px}
+.bw-step p{font-size:17px;font-weight:700;letter-spacing:1px}
+.bw-fig{margin-left:12px;font-size:30px;line-height:1}
+.bw-box{margin-top:38px;background:var(--bg-mint);border-left:4px solid var(--primary);border-radius:0 12px 12px 0;padding:22px 20px}
+.bw-boxtitle{font-size:15px;font-weight:800;letter-spacing:.5px;color:var(--primary)}
+.bw-box ul{margin-top:14px}
+.bw-box li{position:relative;padding-left:18px;font-size:14px;line-height:1.7}
+.bw-box li+li{margin-top:12px}
+.bw-box li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.bw-ctaband{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:44px;padding:28px 20px;background:var(--bg-beige);border-radius:16px}
+.bw-cta{display:block;width:300px;max-width:100%;padding:15px 0;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;border-radius:28px}
+.bw-cta-tel{color:var(--white);background:var(--accent);box-shadow:0 4px 10px rgba(178,95,80,.22)}
+.bw-cta-line{color:var(--primary);background:var(--white);border:2px solid var(--primary)}
+@media(min-width:840px){
+  .bw-in{padding:100px 40px 110px}
+  .bw-cols{display:flex;gap:70px;margin-top:56px;align-items:flex-start}
+  .bw-steps{flex:1;padding-top:6px}
+  .bw-steps li{padding-bottom:40px}
+  .bw-steps li::before{left:25px;top:52px}
+  .bw-num{width:52px;height:52px;font-size:21px}
+  .bw-step{margin-left:22px}
+  .bw-step p{font-size:21px}
+  .bw-fig{font-size:38px}
+  .bw-box{flex:1;margin-top:6px;padding:30px 28px}
+  .bw-boxtitle{font-size:17px}
+  .bw-box li{font-size:15px}
+  .bw-ctaband{flex-direction:row;justify-content:center;gap:28px;margin-top:60px;padding:34px 20px}
+  .bw-cta{width:280px}
+}
+
+/* ---- 事務所について（DECO-029: 理念引用の強調＋写真） ---- */
+.ba{background:var(--bg-beige)}
+.ba-in{max-width:1080px;margin:0 auto;padding:64px 20px}
+.ba-img{margin-top:30px;width:100%;height:220px;border-radius:14px;background:url('../images/soudan_room.png') center/cover}
+.ba-lead{margin-top:24px;font-size:14px;line-height:2.1}
+.ba-lead strong{display:block;margin:0 0 14px;padding:14px 16px;font-size:17px;font-weight:800;line-height:1.7;letter-spacing:1px;color:var(--primary);background:var(--white);border-left:4px solid var(--accent);border-radius:0 10px 10px 0}
+.ba-btn{display:block;width:220px;max-width:100%;margin-top:28px;padding:14px 0;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:var(--white);background:var(--primary);border-radius:26px}
+.ba-btn:hover{background:var(--primary-hover)}
+@media(min-width:840px){
+  .ba-in{display:flex;gap:64px;align-items:center;padding:100px 40px 110px}
+  .ba-text{flex:1}
+  .ba-img{flex:0 0 440px;height:300px;margin-top:0}
+  .ba-lead{margin-top:30px;font-size:15px}
+  .ba-lead strong{margin-bottom:18px;padding:18px 22px;font-size:21px}
+  .ba-btn{margin-top:34px}
+}
+
+/* ---- SUPPORT（DECO-031: 同形2ボックス / DECO-028: 下線区切り縦積み） ---- */
+.bs{background:var(--bg)}
+.bs-in{max-width:1080px;margin:0 auto;padding:64px 20px 72px}
+.bs-lead{margin-top:34px;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 22px}
+.bs-leadicon{display:flex;flex-direction:column;align-items:center}
+.bs-icon{width:84px;height:84px;border-radius:50%;background:url('../images/anshin_image.png') center/cover}
+.bs-iconlabel{margin-top:10px;font-size:13px;font-weight:700;color:var(--primary)}
+.bs-leadtext h3{margin-top:18px;font-size:20px;font-weight:800;line-height:1.6;letter-spacing:1px;text-align:center}
+.bs-leadtext p{margin-top:14px;font-size:14px;line-height:2}
+.bs-block{margin-top:44px}
+.bs-blockhead{display:flex;align-items:center;gap:14px}
+.bs-ic{width:44px;height:44px;border-radius:50%;flex-shrink:0}
+.bs-ic-bento{background:url('../images/bento.png') center/cover}
+.bs-ic-doukou{background:url('../images/doukou.png') center/cover}
+.bs-blockhead h3{font-size:20px;font-weight:800;letter-spacing:1px}
+.bs-blockdesc{margin-top:10px;font-size:13px;color:var(--text-sub)}
+.bs-boxes{margin-top:22px}
+.bs-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 22px;overflow:hidden}
+.bs-box+.bs-box{margin-top:16px}
+.bs-box.box-a{border-top:4px solid var(--accent)}
+.bs-box.box-b{border-top:4px solid var(--primary)}
+.bs-box h4{font-size:17px;font-weight:800;letter-spacing:1px}
+.box-a h4{color:var(--accent)}
+.box-b h4{color:var(--primary)}
+.bs-box p{margin-top:12px;font-size:14px;line-height:1.9}
+.bs-pill{position:relative;display:flex;justify-content:center;align-items:center;gap:10px;width:260px;max-width:100%;height:48px;margin-top:18px;border-radius:24px;font-size:14px;font-weight:700}
+.pill-a{color:var(--white);background:var(--accent)}
+.pill-b{color:var(--white);background:var(--primary)}
+.bs-reasons{margin-top:10px}
+.bs-reasons li{border-bottom:1px solid var(--border)}
+.bs-reasons a{display:block;padding:20px 4px}
+.bs-rhead{display:flex;justify-content:space-between;align-items:center}
+.bs-rhead h4{font-size:16px;font-weight:800;letter-spacing:.5px;color:var(--text)}
+.bs-circle{width:26px;height:26px;flex-shrink:0;margin-left:10px;border-radius:50%;background:var(--primary);color:var(--white);display:flex;justify-content:center;align-items:center;font-size:13px;font-style:normal}
+.bs-reasons p{margin-top:8px;font-size:13px;line-height:1.9;color:var(--text-sub)}
+.bs-more{margin-top:26px;text-align:right}
+.bs-more a{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--primary)}
+@media(min-width:840px){
+  .bs-in{padding:100px 40px 120px}
+  .bs-lead{display:flex;gap:48px;align-items:center;margin-top:52px;padding:44px 48px}
+  .bs-leadicon{flex:0 0 auto}
+  .bs-icon{width:100px;height:100px}
+  .bs-leadtext h3{margin-top:0;font-size:24px;text-align:left}
+  .bs-leadtext p{margin-top:16px;font-size:15px}
+  .bs-block{margin-top:64px}
+  .bs-blockhead h3{font-size:24px}
+  .bs-blockdesc{font-size:14px}
+  .bs-boxes{display:flex;gap:24px;margin-top:26px}
+  .bs-box{flex:1;padding:30px 28px}
+  .bs-box+.bs-box{margin-top:0}
+  .bs-box h4{font-size:19px}
+  .bs-box p{min-height:76px}
+  .bs-reasons{display:flex;flex-wrap:wrap;column-gap:56px;margin-top:14px}
+  .bs-reasons li{width:calc(50% - 28px)}
+  .bs-reasons a{padding:24px 4px}
+  .bs-rhead h4{font-size:18px}
+  .bs-reasons p{font-size:14px}
+  .bs-more{margin-top:36px}
+}
+
+/* ---- フッター（内容維持） ---- */
+.ft{background:var(--primary-hover);color:var(--white);padding:40px 24px 30px}
+.ft-inner{max-width:1080px;margin:0 auto;text-align:center}
+.ft-name{font-size:16px;font-weight:700;letter-spacing:1px}
+.ft-addr{margin-top:12px;font-size:12px;line-height:1.9;opacity:.9}
+.ft-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;margin-top:22px}
+.ft-nav a{font-size:13px;color:var(--white);text-decoration:underline;text-underline-offset:4px}
+.ft-copy{margin-top:24px;font-size:11px;opacity:.7}
+@media(min-width:840px){.ft{padding:60px 24px 40px}.ft-addr{font-size:13px}.ft-nav a{font-size:14px}}
