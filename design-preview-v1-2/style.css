@@ -1,0 +1,302 @@
+/* =============================================
+   ハルサポ デザイン検証 v1-2（375px モバイル基準）
+   v1-1からの変更: 安心材料3点を同一構造（説明形式の1文）に統一 /
+   写真プレースホルダーを16:9に変更
+   ※ 秘密保持・行政書士対応の2文は未確定の候補案（承認待ち）
+   ---------------------------------------------
+   デザインシステム定義（この範囲内でのみ実装する）
+   カラー（サイト設計書で確定済みのコードのみ使用）
+     グリーン主   #487868 / 濃 #3E6E5E / 淡 #A9CBBE
+     サーモン副   #B25F50 / 淡 #E79A8A
+     背景         #FCFAF6（基調）/ #F5EDE2（ベージュ）/ #EFF7F6（ミント）/ #FFFFFF
+     文字         #394641（本文）/ #6C7672（補足）
+     枠線         #E2DDD7
+   フォント: Noto Sans JP のみ（400/500/700）
+   文字サイズ: h1 27px / h2 21px / 強調本文 17px / 本文 16px / 補足 13px / 電話番号 24px
+   行間: 見出し 1.5 / 本文 1.9 / 補足 1.6
+   改行: word-break keep-all を基本に、文節位置の <wbr> でのみ折り返す
+         （あふれ防止に overflow-wrap: anywhere を保険として併用）
+   セクション間余白: 上下 48px（ヒーローのみ上 32px）
+   要素間余白: 8px の倍数（8 / 12 / 16 / 20 / 24 / 32）
+   角丸: ボタン 12px / 情報枠・写真 4px（役割で使い分け、全要素同形にしない）
+   枠線: 1px #E2DDD7（強調時のみ 1.5px #487868）
+   ボタン: 主=電話（サーモン地・白文字・高さ64px）
+           副=LINE（白地・グリーン枠・高さ56px）
+   写真: FV下部に16:9（画像要件リストNo.1の比率に準拠、現在は無地）
+   セクション背景: 白 / #EFF7F6 / #F5EDE2 の切替のみで境界を作る
+   アイコン: 線画SVG（stroke 1.8）を単体で使用。背景ボックスは付けない。
+             区切りは 1px 罫線のみ。絵文字・装飾英語見出しは不使用
+   ロゴ・ブランドモチーフ: 確定素材が存在しないため使用しない（創作禁止）
+   ============================================= */
+
+:root {
+  --green: #487868;
+  --green-dark: #3E6E5E;
+  --green-light: #A9CBBE;
+  --salmon: #B25F50;
+  --salmon-light: #E79A8A;
+  --bg-base: #FCFAF6;
+  --bg-beige: #F5EDE2;
+  --bg-mint: #EFF7F6;
+  --text: #394641;
+  --text-sub: #6C7672;
+  --border: #E2DDD7;
+  --radius-btn: 12px;
+  --radius-box: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--bg-base); }
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------- ヘッダー ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand { display: flex; flex-direction: column; }
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--green);
+}
+
+.brand-sub {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+.header-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius-btn);
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ---------- ファーストビュー ---------- */
+
+.hero {
+  background: var(--bg-mint);
+  padding: 32px 0 48px;
+}
+
+.hero h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.hero-second {
+  margin-top: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.9;
+}
+
+.hero-sub {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.cta { margin-top: 24px; }
+
+/* 写真は補助要素としてCTAの下に16:9で置く（画像要件No.1の比率） */
+.photo-ph {
+  margin-top: 32px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-box);
+  background: var(--green-light);
+}
+
+/* 主ボタン（電話） */
+
+.btn-tel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 20px;
+  background: var(--salmon);
+  color: #FFFFFF;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+}
+
+.btn-tel:active { background: var(--salmon-light); }
+
+.btn-tel-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.btn-tel-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-tel-num {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tel-note {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+  text-align: center;
+}
+
+/* 副ボタン（LINE） */
+
+.btn-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius-btn);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ---------- 安心材料3点（説明形式の1文で統一） ---------- */
+
+.assure {
+  background: #FFFFFF;
+  padding: 48px 0;
+}
+
+.assure-list { list-style: none; }
+
+.assure-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.assure-list li:first-child { padding-top: 0; }
+
+.assure-list li:last-child { padding-bottom: 0; }
+
+.assure-list li + li { border-top: 1px solid var(--border); }
+
+.assure-ic {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--green);
+}
+
+.assure-list p {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+/* ---------- こんなこと、ありませんか ---------- */
+
+.worry {
+  background: var(--bg-beige);
+  padding: 48px 0;
+}
+
+.worry h2 {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.worry h2::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 3px;
+  margin-top: 12px;
+  background: var(--salmon);
+}
+
+.worry-box {
+  margin-top: 24px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-box);
+  padding: 8px 20px;
+}
+
+.worry-list { list-style: none; }
+
+.worry-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.worry-list li + li { border-top: 1px solid var(--border); }
+
+.worry-check {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--salmon);
+}
+
+.worry-close {
+  margin-top: 24px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.worry .btn-tel { margin-top: 16px; }
