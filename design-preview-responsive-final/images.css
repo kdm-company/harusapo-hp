@@ -1,0 +1,12 @@
+/* 承認済み素材（Notion「ハルサポ画像」ページ）をWebP圧縮したもの。新規生成画像は含まない。
+   元素材: fv-soudan / sodan-heya / konnakoto / a-bento / b-kotsuhi / c-doko / taikendan / nagare-icons（3分割） */
+.img-fv { background-image: url("img/fv.webp"); }
+.img-room { background-image: url("img/room.webp"); }
+.img-konnakoto { background-image: url("img/konnakoto.webp"); }
+.img-bento { background-image: url("img/bento.webp"); }
+.img-kotsuhi { background-image: url("img/kotsuhi.webp"); }
+.img-doko { background-image: url("img/doko.webp"); }
+.img-taikendan { background-image: url("img/taikendan.webp"); }
+.ic-step1 { background-image: url("img/step1.webp"); }
+.ic-step2 { background-image: url("img/step2.webp"); }
+.ic-step3 { background-image: url("img/step3.webp"); }
