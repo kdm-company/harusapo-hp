@@ -1,0 +1,517 @@
+/* =============================================
+   ハルサポ トップページ完成プレビュー（375px モバイル基準）
+   基盤: design-preview-v1-2（承認済み）
+   変更: 安心材料に見出し「安心してご相談ください」と確定文言 /
+   16:9写真をFVから安心材料の後に移動 /
+   構成案に沿ってトップページを最後まで展開
+   ---------------------------------------------
+   デザインシステム定義（この範囲内でのみ実装する）
+   カラー（サイト設計書で確定済みのコードのみ使用）
+     グリーン主   #487868 / 濃 #3E6E5E / 淡 #A9CBBE
+     サーモン副   #B25F50 / 淡 #E79A8A
+     背景         #FCFAF6（基調）/ #F5EDE2（ベージュ）/ #EFF7F6（ミント）/ #FFFFFF
+     文字         #394641（本文）/ #6C7672（補足）/ #FFFFFF（フッター）
+     枠線         #E2DDD7
+   フォント: Noto Sans JP のみ（400/500/700）
+   文字サイズ: h1 27px / h2 21px / 強調本文17px / 本文16px / 補足13px / 電話番号24px
+   行間: 見出し1.5 / 本文1.9 / 補足1.6
+   改行: word-break keep-all + 文節位置の<wbr>（overflow-wrap: anywhereを保険）
+   セクション間余白: 上下48px（ヒーローのみ上32px）
+   要素間余白: 8pxの倍数（8/12/16/20/24/32）
+   角丸: ボタン12px / 情報枠・写真4px
+   枠線: 1px #E2DDD7（強調時のみ1.5px #487868）
+   ボタン: 主=電話（サーモン地・白文字・高さ64px）
+           副=LINE・メール（白地・グリーン枠・高さ56px）
+   見出し: h2の下にサーモン32px×3pxのアクセントライン（全セクション共通）
+   セクション背景: 白/ミント/ベージュの切替で境界を作る。フッターのみグリーン地
+   アイコン: 線画SVG（stroke 1.8）単体。絵文字・装飾英語見出し不使用
+   ロゴ・ブランドモチーフ: 確定素材なしのため不使用
+   ============================================= */
+
+:root {
+  --green: #487868;
+  --green-dark: #3E6E5E;
+  --green-light: #A9CBBE;
+  --salmon: #B25F50;
+  --salmon-light: #E79A8A;
+  --bg-base: #FCFAF6;
+  --bg-beige: #F5EDE2;
+  --bg-mint: #EFF7F6;
+  --text: #394641;
+  --text-sub: #6C7672;
+  --border: #E2DDD7;
+  --radius-btn: 12px;
+  --radius-box: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--bg-base); }
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 共通見出し */
+main h2 {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+main h2::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 3px;
+  margin-top: 12px;
+  background: var(--salmon);
+}
+
+/* ---------- ヘッダー ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand { display: flex; flex-direction: column; }
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--green);
+}
+
+.brand-sub {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+.header-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius-btn);
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ---------- ファーストビュー ---------- */
+
+.hero {
+  background: var(--bg-mint);
+  padding: 32px 0 48px;
+}
+
+.hero h1 {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.hero-second {
+  margin-top: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.9;
+}
+
+.hero-sub {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.cta { margin-top: 24px; }
+
+/* 主ボタン（電話） */
+
+.btn-tel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 20px;
+  background: var(--salmon);
+  color: #FFFFFF;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+}
+
+.btn-tel:active { background: var(--salmon-light); }
+
+.btn-tel-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.btn-tel-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-tel-num {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tel-note {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+  text-align: center;
+}
+
+/* 副ボタン（LINE・メール） */
+
+.btn-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius-btn);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ---------- 安心してご相談ください ---------- */
+
+.assure {
+  background: #FFFFFF;
+  padding: 48px 0;
+}
+
+.assure-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.assure-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.assure-list li:first-child { padding-top: 0; }
+
+.assure-list li + li { border-top: 1px solid var(--border); }
+
+.assure-ic {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--green);
+  margin-top: 5px;
+}
+
+.assure-list p {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+/* 16:9写真（安心材料の後、現在は無地プレースホルダー） */
+.photo-ph {
+  margin-top: 8px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-box);
+  background: var(--green-light);
+}
+
+/* ---------- こんなこと、ありませんか ---------- */
+
+.worry {
+  background: var(--bg-beige);
+  padding: 48px 0;
+}
+
+.worry-box {
+  margin-top: 24px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-box);
+  padding: 8px 20px;
+}
+
+.worry-list { list-style: none; }
+
+.worry-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.worry-list li + li { border-top: 1px solid var(--border); }
+
+.worry-check {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--salmon);
+}
+
+.worry-accept {
+  margin-top: 24px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.9;
+}
+
+.worry-close {
+  margin-top: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.worry .btn-tel { margin-top: 16px; }
+
+/* ---------- ここでしてもらえること ---------- */
+
+.support {
+  background: #FFFFFF;
+  padding: 48px 0;
+}
+
+.support-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.support-list li + li { margin-top: 24px; }
+
+.support-lead {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+  padding-left: 12px;
+  border-left: 3px solid var(--salmon);
+}
+
+.support-body {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.9;
+  padding-left: 15px;
+}
+
+/* ---------- 行政書士だから、安心 ---------- */
+
+.trust {
+  background: var(--bg-mint);
+  padding: 48px 0;
+}
+
+.trust p {
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.trust p + p { margin-top: 16px; }
+
+.trust-register {
+  margin-top: 24px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-box);
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-sub);
+}
+
+/* ---------- 相談のながれ ---------- */
+
+.flow {
+  background: #FFFFFF;
+  padding: 48px 0;
+}
+
+.flow-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.flow-list li {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+.flow-list li:last-child { padding-bottom: 0; }
+
+/* ステップ間をつなぐ縦罫線 */
+.flow-list li::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.flow-list li:last-child::before { display: none; }
+
+.flow-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.flow-text {
+  font-size: 16px;
+  line-height: 1.9;
+  padding-top: 3px;
+}
+
+.flow-close {
+  margin-top: 24px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+/* ---------- よくある不安にこたえます ---------- */
+
+.faq {
+  background: var(--bg-beige);
+  padding: 48px 0;
+}
+
+.faq-list {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.faq-list li { padding: 20px 0; }
+
+.faq-list li:first-child { padding-top: 0; }
+
+.faq-list li:last-child { padding-bottom: 0; }
+
+.faq-list li + li { border-top: 1px solid var(--border); }
+
+.faq-q {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.9;
+}
+
+.faq-a {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+/* ---------- 相談まどぐち ---------- */
+
+.contact {
+  background: var(--bg-mint);
+  padding: 48px 0;
+}
+
+.contact-lead {
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.contact .btn-tel { margin-top: 24px; }
+
+/* ---------- フッター（事務所概要） ---------- */
+
+.site-footer {
+  background: var(--green);
+  color: #FFFFFF;
+  padding: 48px 0 32px;
+}
+
+.footer-name {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.footer-info {
+  margin-top: 16px;
+  list-style: none;
+  font-size: 13px;
+  line-height: 2.0;
+}
+
+.footer-link {
+  display: inline-block;
+  margin-top: 24px;
+  color: #FFFFFF;
+  font-size: 13px;
+  line-height: 1.6;
+  text-decoration: underline;
+}
+
+.footer-copy {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--green-dark);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--bg-mint);
+}
