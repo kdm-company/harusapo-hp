@@ -1,0 +1,92 @@
+/* 下層ページ専用スタイル（home.css の後に読み込む） */
+.phd{position:relative;background:var(--color-background-cream);padding:28px 20px 30px;overflow:hidden}
+.phd::before{content:"";position:absolute;inset:-40px -10% -50px 40%;pointer-events:none;background:radial-gradient(ellipse 44% 46% at 78% 22%,rgba(250,199,193,.42) 0%,rgba(252,223,220,.22) 58%,transparent 100%),radial-gradient(circle at 96% 78%,rgba(250,203,198,.34) 0%,rgba(253,227,224,.18) 16%,transparent 34%);filter:blur(2px)}
+.phd-inner{position:relative;max-width:1080px;margin:0 auto}
+.crumb{margin:0;font-size:12px;letter-spacing:.04em;color:var(--color-text-secondary)}
+.crumb a{color:var(--color-text-secondary)}
+.phd h1{margin:10px 0 0;font-size:26px;line-height:1.5;letter-spacing:.04em;color:var(--color-text)}
+.phd .lead{margin:10px 0 0;font-size:15px;line-height:1.9;color:var(--color-text-secondary)}
+.card{background:var(--color-background-cream);border:1px solid var(--color-border);border-radius:14px;overflow:hidden}
+.info{display:grid;gap:0;margin:0}
+.info>div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:14px 16px;border-top:1px solid var(--color-border)}
+.info>div:first-child{border-top:0}
+.info dt{font-size:13px;font-weight:600;color:var(--color-text-secondary)}
+.info dd{margin:0;font-size:15px;line-height:1.8;color:var(--color-text)}
+.info .note{display:block;margin-top:4px;font-size:12px;color:var(--color-text-secondary)}
+.prose{max-width:720px;margin:0 auto}
+.prose h2{margin:26px 0 8px;font-size:17px;letter-spacing:.04em;color:var(--color-text)}
+.prose h2:first-child{margin-top:0}
+.prose p,.prose li{font-size:15px;line-height:1.95;color:var(--color-text)}
+.prose ul{margin:8px 0 0;padding-left:1.2em}
+.prose li{margin:2px 0}
+.prose a{color:var(--color-cta)}
+.ways{display:grid;gap:12px}
+.way{padding:18px 18px 20px}
+.way h3{margin:0;font-size:17px;letter-spacing:.03em;color:var(--color-text)}
+.way p{margin:6px 0 0;font-size:14px;line-height:1.85;color:var(--color-text-secondary)}
+.way .btn{margin-top:14px}
+.btn-line:hover{background:var(--color-white)}
+.form{max-width:640px;margin:0 auto;padding:20px 18px 24px}
+.field{margin:0 0 18px;border:0;padding:0}
+.field>label,.field legend{display:block;margin:0 0 6px;font-size:14px;font-weight:600;color:var(--color-text)}
+.req,.opt{margin-left:8px;padding:2px 7px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;vertical-align:2px}
+.req{background:var(--color-cta);color:var(--color-white)}
+.opt{background:var(--color-white);border:1px solid var(--color-border);color:var(--color-text-secondary)}
+.box{width:100%;min-height:48px;padding:12px 14px;background:var(--color-white);border:1px solid var(--color-border);border-radius:10px;font-size:16px;color:var(--color-text)}
+.box:focus{outline:2px solid var(--color-accent);outline-offset:1px;border-color:var(--color-accent)}
+.box.area{min-height:140px;line-height:1.8;resize:vertical}
+.choice{display:flex;flex-wrap:wrap;gap:8px}
+.choice label{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px;background:var(--color-white);border:1px solid var(--color-border);border-radius:10px;font-size:14px;color:var(--color-text)}
+.choice input{accent-color:var(--color-cta);width:17px;height:17px}
+.hint{margin:6px 0 0;font-size:12px;line-height:1.8;color:var(--color-text-secondary)}
+.agree{display:flex;align-items:flex-start;gap:9px;margin:4px 0 18px;font-size:13px;line-height:1.8;color:var(--color-text)}
+.agree input{margin-top:3px;width:18px;height:18px;accent-color:var(--color-cta)}
+.agree a{color:var(--color-cta)}
+.form .btn{width:100%;border-radius:10px}
+@media (min-width:768px){
+.phd{padding:40px 32px 44px}
+.phd h1{font-size:32px}
+.ways{grid-template-columns:1fr 1fr 1fr;gap:16px}
+.info>div{grid-template-columns:150px 1fr;padding:16px 20px}
+.form{padding:28px 28px 32px}
+.form .btn{width:auto;min-width:220px}
+}
+
+/* ===== 下層ページ修正 第1弾（SP前提） ===== */
+/* ページ見出し帯をヘッダーらしく */
+.phd{background:linear-gradient(180deg,#FEF9F0 0%,var(--color-background-cream) 62%,#FBF0DE 100%);border-bottom:1px solid var(--color-border);padding:30px 20px 34px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.7)}
+.phd::before{inset:-50px -6% -40px 34%;background:radial-gradient(ellipse 46% 48% at 80% 20%,rgba(246,203,116,.50) 0%,rgba(250,224,166,.26) 58%,transparent 100%),radial-gradient(circle at 97% 74%,rgba(244,198,104,.40) 0%,rgba(250,226,172,.20) 16%,transparent 34%);filter:blur(2px)}
+.phd::after{content:"";position:absolute;inset:-60px -10% auto 30%;height:200px;pointer-events:none;background:repeating-conic-gradient(from 196deg at 100% 0%,rgba(243,192,86,.30) 0deg 3deg,transparent 3deg 9deg);-webkit-mask-image:radial-gradient(ellipse 70% 90% at 100% 0%,rgba(0,0,0,.9) 0%,rgba(0,0,0,.35) 52%,transparent 82%);mask-image:radial-gradient(ellipse 70% 90% at 100% 0%,rgba(0,0,0,.9) 0%,rgba(0,0,0,.35) 52%,transparent 82%);filter:blur(1.5px)}
+.phd h1{margin-top:12px;font-weight:600}
+.crumb{letter-spacing:.06em}
+
+/* 下層見出しはトップと同じ .hd を使用（中央揃え維持） */
+.sec .hd{margin-bottom:18px}
+
+/* 項目名に色を付けて内容と区別 */
+.info>div{background:var(--color-background-cream)}
+.info dt{color:var(--color-cta);letter-spacing:.06em}
+
+/* ご連絡の方法：3つのボタンを同一デザイン・角丸控えめ */
+.way .btn,.way .btn-way{width:100%;background:var(--color-white);color:var(--color-secondary-dark);border:1px solid var(--color-secondary-dark);border-radius:8px;box-shadow:none;font-weight:600}
+.way .btn:hover,.way .btn-way:hover{background:var(--color-background-mist);color:var(--color-secondary-dark)}
+
+/* about の最終CTA：上下余白を半分程度に */
+@media (max-width:767px){
+.cta-slim .cta-panel{min-height:300px;padding:76px 20px 76px}
+}
+
+/* ===== 下層ページ修正 第2弾（整合性チェック反映） ===== */
+.way-note{display:block;margin-top:6px;font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--color-text)}
+/* 問い合わせページではフッターの自己リンクを出さない */
+.p-contact .ft-mail{display:none}
+/* 送信完了ページ */
+.thx{max-width:640px;margin:0 auto;padding:22px 18px 26px}
+.thx p{margin:0 0 12px;font-size:15px;line-height:1.95;color:var(--color-text)}
+.thx .thx-lead{font-size:17px;font-weight:600;line-height:1.85}
+.thx .btn{width:100%;margin-top:6px;border-radius:10px}
+.thx .hint{margin-top:12px}
+.thx .hint a{color:var(--color-cta)}
+.thx .thx-back{margin:16px 0 0}
+.thx .thx-back a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;color:var(--color-text-secondary);text-decoration:underline}
+@media (min-width:768px){.thx{padding:28px 28px 32px}.thx .btn{width:auto;min-width:220px}}
