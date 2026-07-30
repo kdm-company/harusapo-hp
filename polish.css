@@ -1,0 +1,68 @@
+/* ============================================
+   デザイン仕上げ（2026-07-30）
+   † 色はパレット内のみ。レイアウトは変えず、
+     余白・階層・接触時の反応だけを整える
+   ============================================ */
+
+/* --- 文字組み --- */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"palt" 1}
+h1,h2,h3,.hd,.fv h1{text-wrap:balance}
+p,dd,li{text-wrap:pretty}
+::selection{background:var(--color-corporate-pink);color:var(--color-text)}
+
+/* --- 接触時の反応を揃える --- */
+a,button,summary,.btn,.help-item,.worry-list li,.way,.info>div,.box{transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .3s ease,transform .3s ease}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--color-accent);outline-offset:3px;border-radius:8px}
+
+/* --- ヘッダーを追従させ、境界をやわらかく --- */
+.hdr{position:sticky;top:0;z-index:15;background:rgba(254,253,252,.88);-webkit-backdrop-filter:saturate(1.15) blur(10px);backdrop-filter:saturate(1.15) blur(10px);border-bottom:1px solid rgba(231,226,221,.75)}
+.brand{transition:opacity .25s ease}
+.gnav>a{position:relative}
+
+/* --- ボタン --- */
+.btn{box-shadow:0 1px 2px rgba(72,69,66,.05)}
+.btn-cta{box-shadow:0 6px 16px rgba(184,91,85,.16)}
+.btn:active{transform:translateY(1px)}
+
+/* --- カードの存在感を揃える --- */
+.worry-list li,.help-item,.faq-list{box-shadow:0 1px 2px rgba(72,69,66,.04)}
+
+/* --- できることの番号を少し主役に --- */
+.help-txt .num{font-size:19px;opacity:.95}
+
+/* --- 流れの丸アイコン --- */
+.sec.flow .icircle{box-shadow:0 2px 10px rgba(72,69,66,.07)}
+
+/* --- FAQ --- */
+.faq-list summary{transition:background-color .2s ease}
+.faq-list details[open] summary{color:var(--color-cta)}
+.faq-list .pm{transition:transform .25s ease}
+.faq-list details[open] .pm{transform:rotate(90deg)}
+.faq-list details p{line-height:1.95}
+
+/* --- フッター --- */
+.ft-nav a:hover{background:rgba(255,255,255,.5)}
+.copy{letter-spacing:.06em;opacity:.9}
+
+/* --- マウス操作でのみ浮かせる --- */
+@media (hover:hover){
+.brand:hover{opacity:.82}
+.btn-cta:hover{box-shadow:0 10px 22px rgba(184,91,85,.24);transform:translateY(-1px)}
+.help-item:hover,.worry-list li:hover{box-shadow:0 10px 26px rgba(72,69,66,.09);transform:translateY(-2px)}
+.faq-list summary:hover{background:rgba(250,219,216,.24)}
+}
+@media (min-width:768px){
+.worry-list li:hover{box-shadow:none;transform:none}
+}
+
+/* --- 横幅のゆとり（PC） --- */
+@media (min-width:1024px){
+.sec{padding:56px 0}
+.hd{margin-bottom:44px}
+}
+
+/* --- 動きを好まない環境 --- */
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
