@@ -1,0 +1,17 @@
+@import url("polish.css");
+/* コラム（新着記事）専用スタイル */
+.col-list{display:grid;gap:12px;max-width:720px;margin:0 auto}
+.col-card{display:block;background:var(--color-white);border:1px solid var(--color-border);border-radius:14px;padding:16px 18px;text-decoration:none;box-shadow:0 1px 2px rgba(72,69,66,.04);transition:box-shadow .2s ease,transform .2s ease}
+.col-card time{display:block;font-size:12px;letter-spacing:.06em;color:var(--color-text-secondary)}
+.col-card h3{margin:6px 0 0;font-size:16px;line-height:1.7;letter-spacing:.02em;color:var(--color-text)}
+.col-card p{margin:6px 0 0;font-size:14px;line-height:1.85;color:var(--color-text-secondary)}
+.col-card .col-go{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:13px;font-weight:600;color:var(--color-cta)}
+.col-more{margin:18px 0 0;text-align:center}
+.col-more a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;color:var(--color-cta);text-decoration:none;border-bottom:1px solid rgba(184,91,85,.35)}
+.col-empty{max-width:720px;margin:0 auto;font-size:14px;line-height:1.9;color:var(--color-text-secondary);text-align:center}
+.art-meta{margin:10px 0 0;font-size:12px;letter-spacing:.06em;color:var(--color-text-secondary)}
+.art-lead{max-width:720px;margin:0 auto 18px;font-size:16px;line-height:1.95;font-weight:600;color:var(--color-text)}
+.art-back{max-width:720px;margin:26px auto 0;text-align:center}
+.art-back a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover){.col-card:hover{box-shadow:0 10px 26px rgba(72,69,66,.09);transform:translateY(-2px)}}
+@media (min-width:768px){.col-card{padding:20px 22px}.col-card h3{font-size:18px}}
