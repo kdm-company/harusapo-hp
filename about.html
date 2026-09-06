@@ -2,8 +2,8 @@
 <title>事務所について｜ハル行政書士事務所（大阪府東大阪市）</title>
 <meta name="description" content="ハル行政書士事務所のご案内。大阪府東大阪市、最寄駅は近鉄 八戸ノ里（やえのさと）駅です。">
 <link rel="canonical" href="https://haru-sapo.com/about">
-<link rel="icon" href="img/brand-symbol.png" type="image/png">
-<link rel="apple-touch-icon" href="img/brand-symbol.png">
+<link rel="icon" href="/img/brand-symbol.png" type="image/png">
+<link rel="apple-touch-icon" href="/img/brand-symbol.png">
 <meta name="theme-color" content="#FEFDFC">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ハル行政書士事務所">
@@ -13,19 +13,21 @@
 <meta property="og:url" content="https://haru-sapo.com/about">
 <meta property="og:image" content="https://haru-sapo.com/img/logo-horizontal.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="home.css"><link rel="stylesheet" href="pages.css"></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/home.css"><link rel="stylesheet" href="/pages.css"></head><body><a class="skip-link" href="#main">本文へ移動</a>
 
 <header class="hdr">
  <a class="brand" href="/" aria-label="ハル行政書士事務所"><span class="bmark" aria-hidden="true"></span><span class="btxt"><span class="btxt-main">ハルサポ</span><span class="btxt-sub">生活保護申請サポート</span></span></a>
- <nav class="gnav" id="gnav">
+ <nav class="gnav" id="gnav" aria-label="メインメニュー">
   <a href="/">ホーム</a>
   <a href="/about" aria-current="page">事務所について</a>
+  <a href="/column">コラム</a>
   <a href="/contact">お問い合わせ</a>
-  <div class="gnav-cta"><a class="btn btn-cta" href="tel:0678502312">電話する</a><a class="gnav-line" href="https://lin.ee/ubh5qsT">つながらないときはLINE</a></div>
+  <div class="gnav-cta"><a class="btn btn-cta" href="tel:0678502312">電話する</a><a class="gnav-line" href="https://lin.ee/ubh5qsT">文字で相談するならLINE</a></div>
  </nav>
  <a class="hdr-tel btn btn-cta" href="tel:0678502312">電話する</a>
  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="gnav" aria-label="メニュー"><span class="mline"></span></button>
 </header>
+<main id="main">
 
 <section class="phd">
  <div class="phd-inner">
@@ -55,16 +57,17 @@
   <div class="cta-txt">
    <h2>ひとりで悩まないでください。<br>まず、ご相談ください。</h2>
    <a class="btn btn-cta btn-lg" href="/contact">問い合わせ<span class="ic ic-arrow"></span></a>
-   <p class="cta-line"><a href="https://lin.ee/ubh5qsT">つながらないときはLINE</a></p>
+   <p class="cta-line"><a href="https://lin.ee/ubh5qsT">文字で相談するならLINE</a></p>
   </div>
  </div>
 </section>
 
+</main>
 <footer class="ft">
  <div class="ft-wrap">
   <div class="ft-brand">
    <div class="ft-logo"><span class="bmark ft-mark" aria-hidden="true"></span><span class="ft-name"><span class="ft-name-main">ハルサポ</span><span class="ft-name-sub">生活保護申請サポート</span></span></div>
-   <img src="img/logo-horizontal.png" alt="ハル行政書士事務所">
+
    <p class="ft-office">行政書士　金 裕人<br>大阪府行政書士会　登録番号 23260460<br>大阪府東大阪市<br><span class="ft-small">詳しい場所はご予約時にお伝えします</span></p>
   </div>
   <nav class="ft-nav">
@@ -75,18 +78,14 @@
   </nav>
   <div class="ft-contact">
    <a class="ft-tel" href="tel:0678502312">06-7850-2312</a>
-   <p class="ft-small">つながらないときはLINE　<a href="https://lin.ee/ubh5qsT">LINEで相談する</a></p>
+   <p class="ft-small">文字で相談するならLINE　<a href="https://lin.ee/ubh5qsT">LINEで相談する</a></p>
    <a class="ft-mail" href="/contact"><span class="ic ic-mail"></span>お問い合わせはこちら</a>
   </div>
  </div>
  <p class="copy">© ハル行政書士事務所</p>
 </footer>
 
-<a class="fab-tel" href="tel:0678502312"><span class="fab-ic" aria-hidden="true"></span><span class="fab-label">電話する</span></a>
+<nav class="contact-dock" aria-label="無料相談"><a href="tel:0678502312"><small>相談無料</small><span>電話で相談する ↗</span></a><a href="https://lin.ee/ubh5qsT"><small>文字でも、お気軽に</small><span>LINEで相談する ↗</span></a></nav>
 
-<script>
-var b=document.getElementById('menuBtn'),n=document.getElementById('gnav');
-b.addEventListener('click',function(){var o=document.body.classList.toggle('nav-open');b.setAttribute('aria-expanded',o?'true':'false');b.setAttribute('aria-label',o?'閉じる':'メニュー');});
-n.addEventListener('click',function(e){if(e.target.tagName==='A'){document.body.classList.remove('nav-open');b.setAttribute('aria-expanded','false');}});
-</script>
+<script src="/js/navigation.js" defer></script>
 </body></html>
