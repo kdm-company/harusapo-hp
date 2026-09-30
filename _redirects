@@ -11,3 +11,8 @@
 /thanks.html   /thanks      301
 /column.html   /column      301
 /column-01.html /column-01  301
+# 旧デザインのページ（どこからもリンクされていない）を現行ページへ
+/services.html  /          301
+/services       /          301
+/company.html   /about     301
+/company        /about     301
